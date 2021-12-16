@@ -1,2 +1,3 @@
-# go-for-react
-go for react
+### learn React
+
+go for it 
