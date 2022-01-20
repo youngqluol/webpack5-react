@@ -79,6 +79,7 @@ checkBrowsers(paths.appPath, isInteractive)
       return;
     }
 
+    // TODO 开发环境配置
     const config = configFactory('development');
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const appName = require(paths.appPackageJson).name;

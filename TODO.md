@@ -12,6 +12,7 @@ dist目录：
 
 eslint配置抽离：
 
+加入`.editorconfig`、`.eslintrc.js`、`eslintignore`
 
 ### 2. 集成prettier
 
@@ -23,7 +24,7 @@ eslint配置抽离：
 
 commit信息校验
 
-### 4. 引入`react-dom`、`redux`
+### 4. 引入`react-router`、`redux`
 
 ### 5. 引入`ant-design`
 
