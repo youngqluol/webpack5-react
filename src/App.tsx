@@ -1,3 +1,4 @@
+import React from 'react'; // React is required, unless you used jsx Runtime: react/jsx-runtime
 import logo from './logo.svg';
 import './App.css';
 
