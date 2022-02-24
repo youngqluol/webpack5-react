@@ -28,8 +28,8 @@ const {
 } = require('react-dev-utils/WebpackDevServerUtils');
 const openBrowser = require('react-dev-utils/openBrowser');
 const semver = require('semver');
-const paths = require('../config/paths');
-const configFactory = require('../config/webpack.config');
+const paths = require('../build/config/paths');
+const config = require('../build/webpack.config');
 const createDevServerConfig = require('../config/webpackDevServer.config');
 const getClientEnvironment = require('../config/env');
 const react = require(require.resolve('react', { paths: [paths.appPath] }));
@@ -80,7 +80,7 @@ checkBrowsers(paths.appPath, isInteractive)
     }
 
     // TODO 开发环境配置
-    const config = configFactory('development');
+    // const config = configFactory('development');
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const appName = require(paths.appPackageJson).name;
 
