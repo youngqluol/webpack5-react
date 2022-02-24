@@ -148,7 +148,7 @@ module.exports = {
   },
 
   module: {
-    //  将缺失的导出提示成错误而不是警告
+    // 将缺失的导出提示成错误而不是警告
     strictExportPresence: true,
     rules: [
       // Handle node_modules packages that contain sourcemaps
@@ -175,7 +175,7 @@ module.exports = {
               },
             },
             generator: {
-              filename: 'image/[name][ext]',
+              filename: 'image/[name].[ext]',
             },
           },
           // "url" loader works like "file" loader except that it embeds assets
@@ -223,14 +223,14 @@ module.exports = {
             test: /\.(mp4|avi|mp3|wav)$/,
             type: 'asset',
             generator: {
-              filename: 'media/[name][ext]',
+              filename: 'media/[name].[ext]',
             },
           },
           {
             test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
             type: 'asset',
             generator: {
-              filename: 'fonts/[name][ext]',
+              filename: 'fonts/[name].[ext]',
             },
           },
           // Process application JS with Babel.
