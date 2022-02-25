@@ -1,11 +1,17 @@
 'use strict';
 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const paths = require('../config/paths');
+const shouldUseSourceMap = true;
+
+exports.shouldUseSourceMap = shouldUseSourceMap;
 // common function to get style loaders
 // loader顺序：style-loader（MiniCssExtractPlugin.loader）、css-loader、postcss-loader、sass-loader（或less-loader等）
-module.exports = (cssOptions, preProcessor) => {
+exports.getStyleLoaders = (cssOptions, preProcessor) => {
+  const isEnvDevelopment = process.env.NODE_ENV === 'development';
   const loaders = [
     isEnvDevelopment && require.resolve('style-loader'),
-    isEnvProduction && {
+    !isEnvDevelopment && {
       loader: MiniCssExtractPlugin.loader,
       // css is located in `css/`, use '../' to locate index.html folder
       // in production `paths.publicUrlOrPath` can be a relative path
@@ -43,7 +49,7 @@ module.exports = (cssOptions, preProcessor) => {
             'postcss-normalize',
           ],
         },
-        sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+        sourceMap: !isEnvDevelopment ? shouldUseSourceMap : isEnvDevelopment,
       },
     },
   ].filter(Boolean);
@@ -53,14 +59,14 @@ module.exports = (cssOptions, preProcessor) => {
       {
         loader: require.resolve('resolve-url-loader'),
         options: {
-          sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+          sourceMap: !isEnvDevelopment ? shouldUseSourceMap : isEnvDevelopment,
           root: paths.appSrc,
         },
       },
       {
         loader: require.resolve(preProcessor),
         options: {
-          sourceMap: true,
+          sourceMap: !isEnvDevelopment ? shouldUseSourceMap : isEnvDevelopment,
         },
       },
     );

@@ -20,11 +20,9 @@
       }
     },
     {
-      "files": "*.md",
+      "files": "*.scss",
       "options": {
-        "parser": "markdown",
-        "jsxBracketSameLine": true,
-        "semi": false
+        "parser": "sass"
       }
     }
   ],
