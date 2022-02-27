@@ -77,7 +77,7 @@ const hasJsxRuntime = (() => {
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
-module.exports = (envTarget) => {
+module.exports = envTarget => {
   const isEnvDevelopment = envTarget === 'development';
   const isEnvProduction = envTarget === 'production';
   return {
@@ -105,8 +105,8 @@ module.exports = (envTarget) => {
       publicPath: paths.publicUrlOrPath,
       // Point sourcemap entries to original disk location (format as URL on Windows)
       devtoolModuleFilenameTemplate: isEnvDevelopment
-        ? (info) => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
-        : (info) => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/'),
+        ? info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
+        : info => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/'),
     },
 
     // 缓存
@@ -118,7 +118,7 @@ module.exports = (envTarget) => {
       buildDependencies: {
         defaultWebpack: ['webpack/lib/'],
         config: [__filename],
-        tsconfig: [paths.appTsConfig, paths.appJsConfig].filter((f) => fs.existsSync(f)),
+        tsconfig: [paths.appTsConfig, paths.appJsConfig].filter(f => fs.existsSync(f)),
       },
     },
 
@@ -129,9 +129,7 @@ module.exports = (envTarget) => {
 
     resolve: {
       modules: ['node_modules', paths.appNodeModules].concat(modules.additionalModulePaths || []),
-      extensions: paths.moduleFileExtensions
-        .map((ext) => `.${ext}`)
-        .filter((ext) => useTypeScript || !ext.includes('ts')),
+      extensions: paths.moduleFileExtensions.map(ext => `.${ext}`).filter(ext => useTypeScript || !ext.includes('ts')),
       alias: {
         // TODO 别名
         ...(modules.webpackAliases || {}),
@@ -288,13 +286,6 @@ module.exports = (envTarget) => {
                 inputSourceMap: shouldUseSourceMap,
               },
             },
-            // "postcss" loader applies autoprefixer to our CSS.
-            // "css" loader resolves paths in CSS and adds assets as dependencies.
-            // "style" loader turns CSS into JS modules that inject <style> tags.
-            // In production, we use MiniCSSExtractPlugin to extract that CSS
-            // to a file, but in development "style" loader enables hot editing
-            // of CSS.
-            // By default we support CSS Modules with the extension .module.css
             {
               test: cssRegex,
               exclude: cssModuleRegex,
@@ -328,11 +319,35 @@ module.exports = (envTarget) => {
             {
               test: lessRegx,
               exclude: lessModuleRegx,
-              use: getStyleLoaders({}, 'less-loader'),
+              use: getStyleLoaders(
+                {
+                  importLoaders: 3,
+                  sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+                  modules: {
+                    mode: 'icss',
+                  },
+                },
+                'less-loader',
+              ),
+              sideEffects: true,
+            },
+            // Adds support for CSS Modules, but using LESS
+            // using the extension .module.less
+            {
+              test: lessModuleRegx,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 3,
+                  sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+                  modules: {
+                    mode: 'local',
+                    getLocalIdent: getCSSModuleLocalIdent,
+                  },
+                },
+                'less-loader',
+              ),
             },
             // Opt-in support for SASS (using .scss or .sass extensions).
-            // By default we support SASS Modules with the
-            // extensions .module.scss or .module.sass
             {
               test: sassRegex,
               exclude: sassModuleRegex,
@@ -346,10 +361,6 @@ module.exports = (envTarget) => {
                 },
                 'sass-loader',
               ),
-              // Don't consider CSS imports dead code even if the
-              // containing package claims to have no side effects.
-              // Remove this when webpack adds a warning or an error for this.
-              // See https://github.com/webpack/webpack/issues/6571
               sideEffects: true,
             },
             // Adds support for CSS Modules, but using SASS
@@ -481,17 +492,17 @@ module.exports = (envTarget) => {
         new ESLintPlugin({
           // Plugin options
           extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
-          formatter: require.resolve('react-dev-utils/eslintFormatter'),
+          formatter: require.resolve('react-dev-utils/eslintFormatter'), // TODO: try eslint-friendly-formatter
           eslintPath: require.resolve('eslint'),
           failOnError: !(isEnvDevelopment && emitErrorsAsWarnings),
           context: paths.appSrc,
           cache: true,
           cacheLocation: path.resolve(paths.appNodeModules, '.cache/.eslintcache'),
           // ESLint class options
+          // https://eslint.org/docs/developer-guide/nodejs-api#-new-eslintoptions
           cwd: paths.appPath,
           resolvePluginsRelativeTo: __dirname,
           baseConfig: {
-            // TODO: eslint option
             extends: [require.resolve('eslint-config-react-app/base')],
             rules: {
               ...(!hasJsxRuntime && {
@@ -499,6 +510,9 @@ module.exports = (envTarget) => {
               }),
             },
           },
+          // Default is true. If false is present, ESLint doesn't load configuration files (.eslintrc.* files)
+          // and Only the configuration of the constructor options is valid.
+          // useEslintrc: false
         }),
     ].filter(Boolean),
     // Turn off performance processing because we utilize
@@ -506,18 +520,20 @@ module.exports = (envTarget) => {
     performance: false,
 
     optimization: {
-      emitOnErrors: true, // 抛出编译错误
-      splitChunks: {
-        chunks: 'all', // 所有的 chunks 代码公共的部分分离出来成为一个单独的文件
-        cacheGroups: {
-          vendor: {
-            name: 'vendor',
-            test: /[\\/]node_modules[\\/]/,
-            priority: 10,
-            chunks: 'initial', // 只打包初始时依赖的第三方
-          },
-        },
-      },
+      emitOnErrors: true, // 编译错误
+      splitChunks: isEnvProduction
+        ? {
+            chunks: 'all',
+            cacheGroups: {
+              vendor: {
+                name: 'vendor',
+                test: /[\\/]node_modules[\\/]/,
+                priority: 10,
+                chunks: 'initial',
+              },
+            },
+          }
+        : {},
       minimize: !isEnvDevelopment,
       minimizer: [
         new TerserPlugin({
