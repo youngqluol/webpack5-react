@@ -2,23 +2,20 @@
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const paths = require('../config/paths');
-const shouldUseSourceMap = true;
+const { shouldUseSourceMap, isEnvDevelopment } = require('./constant');
 
-exports.shouldUseSourceMap = shouldUseSourceMap;
 // common function to get style loaders
 // loader顺序：style-loader（MiniCssExtractPlugin.loader）、css-loader、postcss-loader、sass-loader（或less-loader等）
 exports.getStyleLoaders = (cssOptions, preProcessor) => {
-  const isEnvDevelopment = process.env.NODE_ENV === 'development';
   const loaders = [
-    isEnvDevelopment && require.resolve('style-loader'),
-    !isEnvDevelopment && {
-      loader: MiniCssExtractPlugin.loader,
-      // css is located in `css/`, use '../' to locate index.html folder
-      // in production `paths.publicUrlOrPath` can be a relative path
-      options: paths.publicUrlOrPath.startsWith('.')
-        ? { publicPath: '../' }
-        : {},
-    },
+    isEnvDevelopment
+      ? require.resolve('style-loader')
+      : {
+          loader: MiniCssExtractPlugin.loader,
+          // css is located in `css/`, use '../' to locate index.html folder
+          // in production `paths.publicUrlOrPath` can be a relative path
+          options: paths.publicUrlOrPath.startsWith('.') ? { publicPath: '../' } : {},
+        },
     {
       loader: require.resolve('css-loader'),
       options: cssOptions,
@@ -49,24 +46,24 @@ exports.getStyleLoaders = (cssOptions, preProcessor) => {
             'postcss-normalize',
           ],
         },
-        sourceMap: !isEnvDevelopment ? shouldUseSourceMap : isEnvDevelopment,
+        sourceMap: shouldUseSourceMap,
       },
     },
   ].filter(Boolean);
   if (preProcessor) {
-    // css预处理工具：sass/less/stylus等
+    // css预处理工具：less
     loaders.push(
       {
         loader: require.resolve('resolve-url-loader'),
         options: {
-          sourceMap: !isEnvDevelopment ? shouldUseSourceMap : isEnvDevelopment,
+          sourceMap: shouldUseSourceMap,
           root: paths.appSrc,
         },
       },
       {
         loader: require.resolve(preProcessor),
         options: {
-          sourceMap: !isEnvDevelopment ? shouldUseSourceMap : isEnvDevelopment,
+          sourceMap: shouldUseSourceMap,
         },
       },
     );

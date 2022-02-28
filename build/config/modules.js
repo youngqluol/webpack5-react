@@ -44,30 +44,9 @@ function getAdditionalModulePaths(options = {}) {
   throw new Error(
     chalk.red.bold(
       "Your project's `baseUrl` can only be set to `src` or `node_modules`." +
-        ' Create React App does not support other values at this time.'
-    )
+        ' Create React App does not support other values at this time.',
+    ),
   );
-}
-
-/**
- * Get webpack aliases based on the baseUrl of a compilerOptions object.
- *
- * @param {*} options
- */
-function getWebpackAliases(options = {}) {
-  const baseUrl = options.baseUrl;
-
-  if (!baseUrl) {
-    return {};
-  }
-
-  const baseUrlResolved = path.resolve(paths.appPath, baseUrl);
-
-  if (path.relative(paths.appPath, baseUrlResolved) === '') {
-    return {
-      src: paths.appSrc,
-    };
-  }
 }
 
 function getModules() {
@@ -77,7 +56,7 @@ function getModules() {
 
   if (hasTsConfig && hasJsConfig) {
     throw new Error(
-      'You have both a tsconfig.json and a jsconfig.json. If you are using TypeScript please remove your jsconfig.json file.'
+      'You have both a tsconfig.json and a jsconfig.json. If you are using TypeScript please remove your jsconfig.json file.',
     );
   }
 
@@ -104,7 +83,6 @@ function getModules() {
 
   return {
     additionalModulePaths: additionalModulePaths,
-    webpackAliases: getWebpackAliases(options),
     hasTsConfig,
   };
 }

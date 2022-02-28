@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs');
 const evalSourceMapMiddleware = require('react-dev-utils/evalSourceMapMiddleware');
 const noopServiceWorkerMiddleware = require('react-dev-utils/noopServiceWorkerMiddleware');
 const ignoredFiles = require('react-dev-utils/ignoredFiles');
@@ -8,9 +7,6 @@ const redirectServedPath = require('react-dev-utils/redirectServedPathMiddleware
 const paths = require('./paths');
 
 const host = process.env.HOST || '0.0.0.0';
-const sockHost = process.env.WDS_SOCKET_HOST;
-const sockPath = process.env.WDS_SOCKET_PATH; // default: '/ws'
-const sockPort = process.env.WDS_SOCKET_PORT;
 
 module.exports = function () {
   return {
@@ -35,14 +31,6 @@ module.exports = function () {
       },
     },
     client: {
-      webSocketURL: {
-        // Enable custom sockjs pathname for websocket connection to hot reloading server.
-        // Enable custom sockjs hostname, pathname and port for websocket connection
-        // to hot reloading server.
-        hostname: sockHost,
-        pathname: sockPath,
-        port: sockPort,
-      },
       overlay: {
         errors: true,
         warnings: false,
@@ -65,24 +53,15 @@ module.exports = function () {
       disableDotRule: true,
       index: paths.publicUrlOrPath,
     },
-    // TODO 代理
     proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        pathRewrite: { '^/api': '' },
-      },
+      ...require('./setProxy'),
     },
     setupMiddlewares: (middlewares, devServer) => {
       if (!devServer) {
         throw new Error('webpack-dev-server is not defined');
       }
-      // 从`onBeforeSetupMiddleware`配置项迁移
-      // Keep `evalSourceMapMiddleware`
-      // middlewares before `redirectServedPath` otherwise will not have any effect
       // This lets us fetch source contents from webpack for the error overlay
       middlewares.unshift(evalSourceMapMiddleware(devServer));
-
-      // 从`onAfterSetupMiddleware`配置项迁移
       // Redirect to `PUBLIC_URL` or `homepage` from `package.json` if url not match
       middlewares.push(redirectServedPath(paths.publicUrlOrPath));
       // This service worker file is effectively a 'no-op' that will reset any

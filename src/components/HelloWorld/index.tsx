@@ -1,20 +1,17 @@
 import './index.less';
+import logo from '@src/assets/logo.svg';
 
 interface HelloWorldProps {
   text: string;
 }
 
-var b = 2;
-var a = 1;
-if (a == 2) {
-}
-
-const HelloWorld = (props: HelloWorldProps) => {
+function HelloWorld(props: HelloWorldProps) {
   return (
-    <div className={'hello-world'}>
-      <p className={'text-color'}>{props.text}</p>
+    <div className='hello-world'>
+      <p className='text-color'>{props.text}</p>
+      <img src={logo} className='App-logo' alt='logo' />
     </div>
   );
-};
+}
 
 export default HelloWorld;

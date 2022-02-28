@@ -7,6 +7,8 @@ vscode插件：
 - `prettier`
 - `eslint`
 
+刪除全局eslint
+
 下载依赖（推荐`yarn`）: `yarn` 或 `npm install`
 
 ## 二、项目启动
