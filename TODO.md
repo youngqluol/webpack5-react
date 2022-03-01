@@ -1,18 +1,18 @@
 ## 待办清单
 
-### 一. 整理目录
+### 一. 整理目录 √
 
-build目录：√
+build目录：
    
 - 拆分为 `webpack.config.common.js`、`webpack.config.dev.js`、`webpack.config.prod.js`
 - 加入包分析
 
-dist目录：√
+dist目录：
 
 - 拆分为 `css/`、`js/`、`images/`、`fonts/`、`media/`、`index.html`
 
 
-eslint配置：√
+eslint配置：
 
 - 加入`.editorconfig`、`.eslintrc.js`、`eslintignore`
 
@@ -38,7 +38,7 @@ eslint-plugin-react-hooks@^4.3.0 √
 
 - commit信息校验
 
-### 四. 引入`react-router`、`redux`（或`mobX`）
+### 四. 引入及配置`react-router`、`redux`（或`mobX`）
 
 ### 五. 引入`ant-design`（或公司内部ui）
 
