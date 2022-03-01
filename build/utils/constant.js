@@ -31,4 +31,8 @@ module.exports = {
   webpackFailOnEslintError: false, // 有eslint告警时打包失败
 
   processBabelOutsideApp: false, // Process any JS outside of the app with Babel.
+
+  // webpack-bundle-analyzer
+  ANALYZER_HOST: 'localhost',
+  ANALYZER_PORT: '4000',
 };

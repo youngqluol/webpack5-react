@@ -45,8 +45,7 @@ const HOST = '0.0.0.0';
 let spinner = null;
 
 async function start() {
-  // We require that you explicitly set browsers and do not fall back to
-  // browserslist defaults.
+  // We require that you explicitly set browsers and do not fall back to browserslist defaults.
   await checkBrowsers(paths.appPath, isInteractive);
   const port = await choosePort(HOST, DEFAULT_PORT);
   if (port == null) {

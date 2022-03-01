@@ -9,13 +9,13 @@ vscode插件：
 
 刪除全局eslint
 
-下载依赖（推荐`yarn`）: `yarn` 或 `npm install`
+下载依赖: `npm install` 或 `yarn`
 
 ## 二、项目启动
 
-`yarn start` 或 `npm run start`
+`npm run start` 或 `yarn start`
 
 ## 三、项目构建
 
-`yarn build` 或 `npm run build`
+`npm run build` 或 `yarn build`
 

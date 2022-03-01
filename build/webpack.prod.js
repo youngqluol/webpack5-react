@@ -5,9 +5,11 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const commonConfig = require('./webpack.common');
 const { merge } = require('webpack-merge');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-const { isEnvProduction, useSourceMapInProduction } = require('./utils/constant');
+const { isEnvProduction, useSourceMapInProduction, ANALYZER_HOST, ANALYZER_PORT } = require('./utils/constant');
 const paths = require('./config/paths');
+const shouldOpenAnalyzer = process.env.npm_config_report;
 
 module.exports = merge(commonConfig, {
   mode: 'production',
@@ -32,7 +34,13 @@ module.exports = merge(commonConfig, {
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[name].[contenthash:8].chunk.css',
     }),
-  ],
+    shouldOpenAnalyzer &&
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'server',
+        analyzerHost: ANALYZER_HOST,
+        analyzerPort: ANALYZER_PORT,
+      }),
+  ].filter(Boolean),
 
   optimization: {
     emitOnErrors: true, // 编译错误
@@ -61,7 +69,7 @@ module.exports = merge(commonConfig, {
             inline: 2,
             drop_debugger: true,
             // 只在生产环境下关闭，本地和测试环境下开启
-            drop_console: isEnvProduction,
+            drop_console: false,
           },
           mangle: {
             safari10: true,

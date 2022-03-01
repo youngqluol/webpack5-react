@@ -2,22 +2,21 @@
 
 ### 一. 整理目录
 
-build目录：
+build目录：√
    
 - 拆分为 `webpack.config.common.js`、`webpack.config.dev.js`、`webpack.config.prod.js`
 - 加入包分析
 
-dist目录：
+dist目录：√
 
 - 拆分为 `css/`、`js/`、`images/`、`fonts/`、`media/`、`index.html`
 
 
-eslint配置：
+eslint配置：√
 
 - 加入`.editorconfig`、`.eslintrc.js`、`eslintignore`
 
 依賴：
-
 ```
 eslint-plugin-react@^7.28.0 √
 @typescript-eslint/eslint-plugin@latest  √
@@ -29,7 +28,7 @@ eslint-plugin-react-hooks@^4.3.0 √
 @typescript-eslint/parser@latest √
 ```
 
-### 二. 集成prettier
+### 二. 集成prettier √
 
 - 加入`.prettierrc`、`.prettierignore`
 
@@ -43,15 +42,11 @@ eslint-plugin-react-hooks@^4.3.0 √
 
 ### 五. 引入`ant-design`（或公司内部ui）
 
-### 六. 封装`axios`请求
+### 六. 封装`axios`请求 √
 
 ### 七. `mock`数据
 
 ### 八. 单元测试（可选）
-
-## 其他
-
-### 一、`package.json`依赖整理
 
 
 ## BUG汇总
@@ -60,7 +55,7 @@ eslint-plugin-react-hooks@^4.3.0 √
 
 *问题描述：*
 
-eslint在@8.2.0+下 提示不生效，报错如下:
+eslint提示不生效，vscode*输出*如下:
 
 ```js
 The eslint library loaded from /Users/Emily/Desktop/code/go-for-react/node_modules/eslint/lib/api.js doesn't export a CLIEngine. You need at least eslint@1.0.0
@@ -72,6 +67,6 @@ The eslint library loaded from /Users/Emily/Desktop/code/go-for-react/node_modul
 
 ```js
 npm uninstall eslint -g
-
-yarn remove eslint -g
+或
+yarn global remove eslint
 ```
