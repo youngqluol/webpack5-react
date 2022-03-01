@@ -15,6 +15,7 @@ const modules = require('./config/modules');
 const getClientEnvironment = require('./config/env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
+const WebpackBar = require('webpackbar');
 
 // for cache option
 const createEnvironmentHash = require('./utils/createEnvironmentHash');
@@ -397,6 +398,10 @@ module.exports = {
         // and Only the configuration of the constructor options is valid.
         // useEslintrc: false
       }),
+    new WebpackBar({
+      name: isEnvDevelopment ? '正在启动：' : '正在打包：',
+      color: '#fa8c16',
+    }),
   ].filter(Boolean),
   // Turn off performance processing because we utilize
   // our own hints via the FileSizeReporter

@@ -35,8 +35,9 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.tsx', '.ts', '.js', '.json'],
+        extensions: ['.tsx', '.ts', '.js', '.json', 'svg'],
       },
+      typescript: {},
     },
   },
   rules: {
@@ -51,7 +52,7 @@ module.exports = {
     ],
     'import/no-extraneous-dependencies': [ERROR, { devDependencies: true }],
     'import/prefer-default-export': OFF,
-    'import/no-unresolved': OFF,
+    // 'import/no-unresolved': OFF,
     'import/no-dynamic-require': OFF,
 
     '@typescript-eslint/no-useless-constructor': ERROR,

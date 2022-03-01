@@ -25,7 +25,6 @@ const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const printBuildError = require('react-dev-utils/printBuildError');
-const ora = require('ora');
 
 const measureFileSizesBeforeBuild = FileSizeReporter.measureFileSizesBeforeBuild;
 const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
@@ -44,7 +43,6 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 
 const argv = process.argv.slice(2);
 const writeStatsJson = argv.indexOf('--stats') !== -1;
-let spinner = null;
 
 // We require that you explicitly set browsers and do not fall back to
 // browserslist defaults.
@@ -62,13 +60,10 @@ checkBrowsers(paths.appPath, isInteractive)
     // Merge with the public folder
     copyPublicFolder();
     // Start the webpack build
-    spinner = ora('Creating an optimized production build...');
-    spinner.start();
     return await build(previousFileSizes);
   })
   .then(
     ({ stats, previousFileSizes, warnings }) => {
-      spinner.stop();
       if (warnings.length) {
         console.log(chalk.yellow('Compiled with warnings.\n'));
         console.log(warnings.join('\n\n'));
@@ -97,7 +92,6 @@ checkBrowsers(paths.appPath, isInteractive)
       printHostingInstructions(appPackage, publicUrl, publicPath, buildFolder, useYarn);
     },
     err => {
-      spinner.stop();
       const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true';
       if (tscCompileOnError) {
         console.log(
@@ -117,7 +111,6 @@ checkBrowsers(paths.appPath, isInteractive)
     if (err && err.message) {
       console.log(err.message);
     }
-    spinner && spinner.stop();
     process.exit(1);
   });
 

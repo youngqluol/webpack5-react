@@ -68,8 +68,8 @@ module.exports = merge(commonConfig, {
             comparisons: false,
             inline: 2,
             drop_debugger: true,
-            // 只在生产环境下关闭，本地和测试环境下开启
-            drop_console: false,
+            // 禁止console：生产环境下关闭
+            drop_console: isEnvProduction,
           },
           mangle: {
             safari10: true,

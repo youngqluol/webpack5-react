@@ -26,7 +26,6 @@ const semver = require('semver');
 const paths = require('../config/paths');
 const react = require(require.resolve('react', { paths: [paths.appPath] }));
 const { checkBrowsers } = require('react-dev-utils/browsersHelper');
-const ora = require('ora');
 
 const createDevServerConfig = require('../config/webpackDevServer.config');
 const getClientEnvironment = require('../config/env');
@@ -42,7 +41,6 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000; // 端口号
 const HOST = '0.0.0.0';
-let spinner = null;
 
 async function start() {
   // We require that you explicitly set browsers and do not fall back to browserslist defaults.
@@ -88,14 +86,11 @@ async function start() {
   if (isInteractive) {
     clearConsole();
   }
-  spinner = ora('Starting the development server...\n');
-  spinner.start();
   await devServer.start();
   if (env.raw.FAST_REFRESH && semver.lt(react.version, '16.10.0')) {
     console.log(chalk.yellow(`Fast Refresh requires React 16.10 or higher. You are using React ${react.version}.`));
   }
   openBrowser(urls.localUrlForBrowser);
-  spinner.stop();
 }
 
 async function main() {
@@ -105,7 +100,6 @@ async function main() {
     if (err && err.message) {
       console.log(err.message);
     }
-    spinner && spinner.stop();
     process.exit(1);
   }
 }
