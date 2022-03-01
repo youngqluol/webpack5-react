@@ -11,7 +11,8 @@
   "scripts": {
     "start": "node build/scripts/start.js",
     "build": "node build/scripts/build.js",
-    "report": "npm run build --report"
+    "report": "npm run build --report",
+    "lint": "eslint -c .eslintrc.js --ext .ts,.tsx,.js src"
   },
   "browserslist": {
     "production": [

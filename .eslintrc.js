@@ -61,10 +61,9 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': OFF,
     '@typescript-eslint/explicit-module-boundary-types': OFF,
     '@typescript-eslint/no-explicit-any': OFF,
-    '@typescript-eslint/no-use-before-define': ERROR,
+    '@typescript-eslint/no-use-before-define': OFF,
     '@typescript-eslint/no-unused-vars': WARN,
     '@typescript-eslint/triple-slash-reference': OFF,
-    'no-unused-vars': OFF,
 
     'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx', 'ts', '.jsx', 'js'] }],
     'react/jsx-indent-props': [ERROR, 2],
@@ -95,5 +94,8 @@ module.exports = {
     'no-restricted-syntax': OFF,
     'no-continue': OFF,
     'prefer-const': OFF,
+    'no-shadow': OFF,
+    'no-param-reassign': OFF,
+    'no-unused-vars': OFF,
   },
 };
