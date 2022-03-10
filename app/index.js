@@ -11,7 +11,7 @@ app.use(koaStatic(path.resolve(process.cwd(), 'dist')));
 
 // https://github.com/koajs/router/blob/master/history.md 路径匹配已更新
 router.get('/(.*)', async (ctx, next) => {
-  ctx.type = 'html';
+  ctx.set('Content-Type', 'text/html');
   ctx.body = fs.readFileSync(path.resolve(process.cwd(), 'dist/index.html'));
 });
 app.use(router.routes()).use(router.allowedMethods());
