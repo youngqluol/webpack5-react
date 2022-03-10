@@ -63,7 +63,7 @@ The eslint library loaded from /Users/Emily/Desktop/code/go-for-react/node_modul
 
 *解决:*
 
-删除全局eslint: 
+删除全局eslint:
 
 ```js
 npm uninstall eslint -g
