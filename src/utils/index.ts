@@ -5,6 +5,16 @@ export const testMethod = (a: string): Promise<any> => {
   });
 };
 
+export function alignInRange(value: number, minValue: number, maxValue: number): number {
+  if (value < minValue) {
+    return minValue;
+  }
+  if (value > maxValue) {
+    return maxValue;
+  }
+  return value;
+}
+
 export const testBabel = async () => {
   const [a] = [1, 2]; // 1
   let b = `====${a}====`; // ====1====

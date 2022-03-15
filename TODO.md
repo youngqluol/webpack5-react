@@ -1,44 +1,11 @@
 ## 待办清单
-
-### 一. 整理目录 √
-
-build目录：
-   
-- 拆分为 `webpack.config.common.js`、`webpack.config.dev.js`、`webpack.config.prod.js`
-- 加入包分析
-
-dist目录：
-
-- 拆分为 `css/`、`js/`、`images/`、`fonts/`、`media/`、`index.html`
-
-
-eslint配置：
-
-- 加入`.editorconfig`、`.eslintrc.js`、`eslintignore`
-
-依賴：
-```
-eslint-plugin-react@^7.28.0 √
-@typescript-eslint/eslint-plugin@latest  √
-eslint-config-airbnb@latest √
-eslint@^8.2.0 √
-eslint-plugin-import@^2.25.3 √
-eslint-plugin-jsx-a11y@^6.5.1 √
-eslint-plugin-react-hooks@^4.3.0 √
-@typescript-eslint/parser@latest √
-```
-
-### 二. 集成prettier √
-
-- 加入`.prettierrc`、`.prettierignore`
-
-### 三. 集成husky
+### 一. 集成husky
 
 - 提交格式化
 
 - commit信息校验
 
-### 四. 引入及配置`react-router`、`redux`（或`mobX`）
+### 二. 引入及配置`react-router`、`redux`（或`mobX`）
 
 ### 五. 引入`ant-design`（或公司内部ui）
 
@@ -63,7 +30,7 @@ The eslint library loaded from /Users/Emily/Desktop/code/go-for-react/node_modul
 
 *解决:*
 
-删除全局eslint: 
+删除全局eslint:
 
 ```js
 npm uninstall eslint -g

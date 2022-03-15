@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test HeaderBar component render test Movebox component render success 1`] = `
+<div
+  className="header-bar"
+>
+  <p
+    className="text-color"
+  >
+    text
+  </p>
+</div>
+`;
