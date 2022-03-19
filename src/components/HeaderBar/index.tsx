@@ -1,4 +1,4 @@
-import './index.less';
+import HeaderStyle from './index.module.less';
 
 interface HeaderBarProps {
   text: string;
@@ -6,8 +6,8 @@ interface HeaderBarProps {
 
 function HeaderBar(props: HeaderBarProps) {
   return (
-    <div className='header-bar'>
-      <p className='text-color'>{props.text}</p>
+    <div className={HeaderStyle.headerBar}>
+      <p className={HeaderStyle.textColor}>{props.text}</p>
     </div>
   );
 }
