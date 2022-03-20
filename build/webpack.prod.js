@@ -50,8 +50,16 @@ module.exports = merge(commonConfig, {
         vendor: {
           name: 'vendor',
           test: /[\\/]node_modules[\\/]/,
-          priority: 10,
-          chunks: 'initial',
+          priority: -20,
+          // chunks: 'initial',
+        },
+        antd: {
+          name: 'antd',
+          test: /[\\/]antd[\\/]/,
+          priority: -10,
+          // 如果当前 chunk 包含已从主 bundle 中拆分出的模块，则它将被重用，而不是生成新的模块。
+          // 这可能会影响 chunk 的结果文件名。
+          reuseExistingChunk: true,
         },
       },
     },
