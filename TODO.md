@@ -37,3 +37,8 @@ npm uninstall eslint -g
 或
 yarn global remove eslint
 ```
+
+## toStudy
+
+1. hooks: useCallback, useRef, useMemo, useEffect, ...
+2. react应用 调试插件（类似vue的devTools）

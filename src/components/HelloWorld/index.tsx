@@ -1,5 +1,6 @@
+import { Button } from 'antd';
 import './index.less';
-import logo from '@src/assets/logo.svg';
+// import logo from '@src/assets/logo.svg';
 import { testBabel } from '../../utils';
 
 interface HelloWorldProps {
@@ -10,7 +11,8 @@ function HelloWorld(props: HelloWorldProps) {
   return (
     <div className='hello-world' onClick={() => testBabel()}>
       <p className='text-color'>{props.text}</p>
-      <img src={logo} className='App-logo' alt='logo' />
+      <Button type='primary'>Primary Button</Button>
+      {/* <img src={logo} className='App-logo' alt='logo' /> */}
     </div>
   );
 }
