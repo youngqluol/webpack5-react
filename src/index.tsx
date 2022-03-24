@@ -4,6 +4,7 @@ import App from './pages/App';
 
 import './style/reset.css';
 import 'antd/dist/antd.css';
+import './style/global.less';
 
 ReactDOM.render(
   <React.StrictMode>

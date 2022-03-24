@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { getStyleLoaders } = require('./utils/getStyleLoaders');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
-const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
+// const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const paths = require('./config/paths');
 const modules = require('./config/modules');
@@ -253,8 +253,10 @@ module.exports = {
               importLoaders: 1,
               sourceMap: shouldUseSourceMap,
               modules: {
+                // 使用 `local` 同使用 `modules: true` 的效果是一样的
                 mode: 'local',
-                getLocalIdent: getCSSModuleLocalIdent,
+                // getLocalIdent: getCSSModuleLocalIdent, // class命名格式
+                localIdentName: '[local]-[hash:base64:10]',
               },
             }),
           },
@@ -266,6 +268,7 @@ module.exports = {
               {
                 importLoaders: 3,
                 sourceMap: shouldUseSourceMap,
+                // modules相关配置 (https://webpack.docschina.org/loaders/css-loader/)
                 modules: {
                   mode: 'icss',
                 },
@@ -284,7 +287,8 @@ module.exports = {
                 sourceMap: shouldUseSourceMap,
                 modules: {
                   mode: 'local',
-                  getLocalIdent: getCSSModuleLocalIdent,
+                  // getLocalIdent: getCSSModuleLocalIdent,
+                  localIdentName: '[local]-[hash:base64:10]',
                 },
               },
               'less-loader',
