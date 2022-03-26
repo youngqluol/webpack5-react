@@ -25,12 +25,12 @@ module.exports = {
 
   handleModulesSourceMap: false, // 处理node_modules包里的sourcemaps
 
-  imageInlineSizeLimit: '10000', // 图片转换为base64的最小大小，10kb左右
+  imageInlineSizeLimit: 10000, // 图片转换为base64的最小大小，10kb左右
 
   disableESLintPlugin: false, // 禁用eslint
   webpackFailOnEslintError: false, // 有eslint告警时打包失败
 
-  processBabelOutsideApp: false, // Process any JS outside of the app with Babel.
+  processBabelOutsideApp: true, // Process any JS outside of the app with Babel.
 
   // webpack-bundle-analyzer
   ANALYZER_HOST: 'localhost',
