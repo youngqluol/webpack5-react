@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@kdcloudjs/kdesign": "^1.1.0",
     "antd": "^4.19.2",
     "axios": "^0.26.0",
     "mobx": "^6.5.0",
@@ -24,13 +25,11 @@
     "production": [
       ">0.2%",
       "not dead",
-      "ie >= 9",
       "not op_mini all"
     ],
     "test": [
       ">0.2%",
       "not dead",
-      "ie >= 9",
       "not op_mini all"
     ],
     "development": [
