@@ -206,7 +206,27 @@ module.exports = {
                 ],
               ],
 
-              plugins: [isEnvDevelopment && require.resolve('react-refresh/babel')].filter(Boolean),
+              plugins: [
+                isEnvDevelopment && require.resolve('react-refresh/babel'),
+                [
+                  'import',
+                  {
+                    libraryName: 'antd',
+                    libraryDirectory: 'lib',
+                    style: 'css',
+                  },
+                  'antd',
+                ],
+                // [
+                //   'import',
+                //   {
+                //     libraryName: '@kdcloudjs/kdesign',
+                //     libraryDirectory: 'lib',
+                //     style: 'css',
+                //   },
+                //   '@kdcloudjs/kdesign',
+                // ],
+              ].filter(Boolean),
               // Enables caching results in ./node_modules/.cache/babel-loader/ directory for faster rebuilds.
               cacheDirectory: true,
               cacheCompression: false,

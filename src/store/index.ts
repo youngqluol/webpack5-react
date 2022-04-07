@@ -8,5 +8,14 @@ import { pageDataStore } from './pageData';
 configure({ enforceActions: 'always', useProxies: 'never' });
 
 export const stores = { counterStore, pageDataStore };
-export const CounterContext = React.createContext(stores);
-export const useStores = () => React.useContext(CounterContext);
+export const storeContext = React.createContext(stores);
+
+// 装饰器：用于组件式
+type IReactComponent<P = any> = React.ClassicComponentClass<P> | React.ComponentClass<P>;
+export function injectStores<T extends IReactComponent>(component: T) {
+  (component as React.ComponentClass<any, any>).contextType = storeContext;
+  return component as T;
+}
+
+// hook：用于函数式
+export const useStores = () => React.useContext(storeContext);

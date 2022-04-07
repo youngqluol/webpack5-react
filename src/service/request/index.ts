@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { AxiosRequestConfig, AxiosInstance } from 'axios';
 import qs from 'qs';
 
-const baseURL = 'api';
+const baseURL = '/api';
 const timeout = 80000;
 
 const config: AxiosRequestConfig = {
@@ -28,6 +28,16 @@ instance.interceptors.request.use(
   },
   error => {
     return Promise.reject(error);
+  },
+);
+
+// 相应拦截
+instance.interceptors.response.use(
+  res => {
+    return res;
+  },
+  err => {
+    return Promise.reject(err);
   },
 );
 
@@ -64,6 +74,7 @@ function checkUrl(config: AxiosRequestConfig) {
   return config;
 }
 
+// application/x-www-form-urlencoded需要序列化
 function checkContentType(config: AxiosRequestConfig) {
   if (
     config.data &&

@@ -74,6 +74,9 @@ module.exports = {
     'react/jsx-props-no-spreading': OFF,
     'react/prop-types': OFF,
     'react/react-in-jsx-scope': hasJsxRuntime ? OFF : ERROR,
+    'react/function-component-definition': OFF,
+    'react/prefer-stateless-function': OFF,
+    'react/require-default-props': OFF,
 
     'jsx-a11y/click-events-have-key-events': OFF,
     'jsx-a11y/no-noninteractive-element-interactions': OFF,
@@ -81,7 +84,7 @@ module.exports = {
 
     'lines-between-class-members': [ERROR, 'always'],
     // indent: [ERROR, 2, { SwitchCase: 1 }],
-    'linebreak-style': [ERROR, 'unix'],
+    // 'linebreak-style': [ERROR, 'unix'],
     quotes: [ERROR, 'single'],
     semi: [ERROR, 'always'],
     'no-unused-expressions': WARN,
