@@ -28,3 +28,7 @@ export function sleep(delay: number): Promise<void> {
     setTimeout(() => resolve(), delay);
   });
 }
+
+const a = (b, c) => {
+  return c + b;
+};

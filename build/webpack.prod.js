@@ -61,6 +61,14 @@ module.exports = merge(commonConfig, {
           // 这可能会影响 chunk 的结果文件名。
           reuseExistingChunk: true,
         },
+        kdcloudjs: {
+          name: '@kdcloudjs',
+          test: /[\\/]@kdcloudjs[\\/]/,
+          priority: -10,
+          // 如果当前 chunk 包含已从主 bundle 中拆分出的模块，则它将被重用，而不是生成新的模块。
+          // 这可能会影响 chunk 的结果文件名。
+          reuseExistingChunk: true,
+        },
       },
     },
     minimize: true,
