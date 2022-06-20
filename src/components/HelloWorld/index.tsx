@@ -9,6 +9,7 @@ interface HelloWorldProps {
   text: string;
 }
 
+// todo: for test styled-component
 function HelloWorld(props: HelloWorldProps) {
   const { counterStore } = useStores();
   const { counter, increment } = counterStore;
@@ -18,7 +19,7 @@ function HelloWorld(props: HelloWorldProps) {
       <Button type='primary'>Primary Button</Button>
       {/* <img src={logo} className='App-logo' alt='logo' /> */}
       <h2>helloWorld counter:{counter}</h2>
-      <button type='submit' onClick={e => increment()}>
+      <button type='submit' onClick={() => increment()}>
         +1
       </button>
     </div>

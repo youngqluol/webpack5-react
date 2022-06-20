@@ -10,9 +10,10 @@ type stateType = {
   testText: string;
 };
 
+// for test mobx's usage in class component
 @observer
 @injectStores
-class NoMatch extends React.Component<propType, stateType> {
+class TestClassComp extends React.Component<propType, stateType> {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,11 +24,12 @@ class NoMatch extends React.Component<propType, stateType> {
   render() {
     return (
       <div>
-        {this.state.testText}
-        {this.props.text || ''}
+        <p>{this.state.testText}</p>
+        <p> {this.props.text || ''}</p>
+        <p>{this.context.counterStore.count}</p>
       </div>
     );
   }
 }
 
-export default NoMatch;
+export default TestClassComp;

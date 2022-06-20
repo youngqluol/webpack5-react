@@ -7,6 +7,7 @@ interface HeaderBarProps {
   text: string;
 }
 
+// for test css.module and mobx'usage in functional component
 function HeaderBar(props: HeaderBarProps) {
   const { counterStore } = useStores();
   const { counter, increment } = counterStore;
@@ -15,7 +16,7 @@ function HeaderBar(props: HeaderBarProps) {
       <p className={HeaderStyle.textColor}>{props.text}</p>
       <Button type='primary'>Primary Button</Button>
       <h2>headBar counter:{counter}</h2>
-      <button type='submit' onClick={e => increment()}>
+      <button type='submit' onClick={() => increment()}>
         +1
       </button>
     </div>

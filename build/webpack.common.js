@@ -423,7 +423,7 @@ module.exports = {
         // useEslintrc: false
       }),
     new WebpackBar({
-      name: isEnvDevelopment ? '正在启动：' : '正在打包：',
+      name: isEnvDevelopment ? 'compiling：' : 'building：',
       color: '#fa8c16',
     }),
   ].filter(Boolean),
