@@ -1,9 +1,14 @@
 import { useEffect } from 'react';
 
-export default function Content1() {
+export default function Content1({ style = {}, text = '' }: { style?: React.CSSProperties; text?: string }) {
   useEffect(() => {
-    console.error('content1 effect');
+    // console.error('content1 effect');
   }, []);
 
-  return <input type='text' />;
+  return (
+    <div style={{ ...style }}>
+      <h1>{text}</h1>
+      <input type='text' />
+    </div>
+  );
 }

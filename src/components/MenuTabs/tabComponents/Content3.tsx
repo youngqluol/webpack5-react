@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 export default function Content1({ style = {}, text = '' }: { style?: React.CSSProperties; text?: string }) {
   useEffect(() => {
-    // console.error('content2 effect');
+    // console.error('content3 effect');
   }, []);
 
   return (
