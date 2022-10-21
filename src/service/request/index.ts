@@ -1,6 +1,7 @@
 import axios from 'axios';
 import type { AxiosRequestConfig, AxiosInstance } from 'axios';
 import qs from 'qs';
+import { ResponseData } from './types';
 
 const baseURL = '/api';
 const timeout = 80000;
@@ -41,7 +42,7 @@ instance.interceptors.response.use(
   },
 );
 
-const get = (getConfig: AxiosRequestConfig) => {
+const get = <T>(getConfig: AxiosRequestConfig): Promise<ResponseData<T>> => {
   return new Promise((resolve, reject) => {
     instance({ method: 'get', ...getConfig }).then(
       res => {

@@ -32,3 +32,12 @@ export function sleep(delay: number): Promise<void> {
 const a = (b, c) => {
   return c + b;
 };
+
+enum testEnum {
+  A = 'a',
+  B = 'b',
+}
+
+function fn(a: testEnum) {
+  console.log(a);
+}

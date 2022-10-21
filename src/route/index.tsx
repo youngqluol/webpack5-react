@@ -11,7 +11,9 @@ function BasicRouter() {
         <Route path='/' element={<Navigate to='/home' replace />} />
         <Route path='/' element={<Outlet />}>
           <Route path='home' element={<Home />} />
-          <Route path='forTest' element={<ForTest />} />
+          <Route path='forTest' element={<ForTest />}>
+            <Route path=':tabName' element={<ForTest />} />
+          </Route>
         </Route>
         <Route path='*' element={<Navigate to='/home' replace />} />
       </Routes>
