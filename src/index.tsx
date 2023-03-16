@@ -3,6 +3,7 @@
 // import 'regenerator-runtime/runtime';
 // import 'react-app-polyfill/ie9';
 import ReactDOM from 'react-dom';
+import { injectReportEvent } from '@src/utils/trace/initReactTrack';
 import App from './pages/App';
 
 import './style/reset.css';

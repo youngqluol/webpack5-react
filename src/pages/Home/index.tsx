@@ -1,88 +1,62 @@
-import React from 'react';
-import { Table, Button } from '@kdcloudjs/kdesign';
+import React, { useEffect, useState } from 'react';
+import * as PDFJS from 'pdfjs-dist/build/pdf';
+import PDFJSWorker from 'pdfjs-dist/build/pdf.worker.entry';
+
+PDFJS.GlobalWorkerOptions.workerSrc = PDFJSWorker;
 
 function Home() {
-  const dataSource = [
-    {
-      id: '1',
-      No: 1,
-      order: 'AP-202009-00001',
-      from: '陕西环宇科技',
-      to: '深圳环球科技',
-      amount: '26,800.00',
-      balance: '5,200.00',
-    },
-    {
-      id: '2',
-      No: 2,
-      order: 'AP-202009-00001',
-      from: '陕西环宇科技',
-      to: '深圳环球科技',
-      amount: '236,800.00',
-      balance: '1,500.00',
-    },
-    {
-      id: '3',
-      No: 3,
-      order: 'AP-202009-00002',
-      from: '陕西环宇科技',
-      to: '深圳环球科技',
-      amount: '246,800.00',
-      balance: '5,300.00',
-    },
-    {
-      id: '4',
-      No: 4,
-      order: 'AP-202009-00003',
-      from: '陕西环宇科技',
-      to: '深圳环球科技',
-      amount: '216,800.00',
-      balance: '5,400.00',
-    },
-    {
-      id: '5',
-      No: 5,
-      order: 'AP-202009-00004',
-      from: '陕西环宇科技',
-      to: '深圳环球科技',
-      amount: '236,800.00',
-      balance: '1,500.00',
-    },
-  ];
+  const [imgUrl, setImgUrl] = useState('');
 
-  const columns = [
-    { code: 'No', name: '序号', width: 60, align: 'center' },
-    { code: 'order', name: '单据号', width: 200, features: { sortable: true, filterable: true } },
-    { code: 'from', name: '来户', width: 200, features: { sortable: true, filterable: true } },
-    { code: 'to', name: '往户', width: 200, features: { sortable: true, filterable: true } },
-    { code: 'amount', name: '应付金额', width: 100, align: 'right', features: { sortable: true, filterable: true } },
-    { code: 'balance', name: '应收余额', width: 100, align: 'right', features: { sortable: true, filterable: true } },
-  ];
+  useEffect(() => {
+    // createCanvas();
+  }, []);
 
-  const filter = {
-    defaultFilters: [
-      {
-        code: 'order',
-        filter: 'AP-202009-00001',
-        filterCondition: 'contain',
-      },
-    ],
-    onChangeFilters(nextFilters) {
-      console.log('nextFilters', nextFilters);
-    },
+  const createCanvas = async pdfUrl => {
+    const canvas = document.createElement('canvas'); // 创建canvas标签
+    const loadingTask = PDFJS.getDocument({
+      url: pdfUrl,
+    });
+    const pdfInfo = await loadingTask.promise; // 获取pdf实例
+    const page = await pdfInfo.getPage(1); // 根据pdf实例和解析出pdf的页数得出一个page信息
+
+    // console.log('page', page);
+
+    const viewport = page.getViewport({ scale: 1 }); // 获取page视口信息
+
+    const context = canvas.getContext('2d'); // 返回一个用于在画布上绘图的环境
+    canvas.width = viewport.width; // 设置画布宽度
+    canvas.height = viewport.height; // 设置画布高度
+
+    const renderContext = {
+      canvasContext: context,
+      viewport,
+    };
+
+    const renderTask = page.render(renderContext);
+    renderTask.promise.then(() => {
+      const imgUrl = canvas.toDataURL('image/jpeg');
+      // console.log(imgUrl);
+      setImgUrl(imgUrl);
+    });
   };
 
-  const sort = {
-    mode: 'single',
-    defaultSorts: [{ code: 'order', order: 'asc' }],
-    highlightColumnWhenActive: true,
-    sortIconHoverShow: true,
-    onChangeSorts(nextSorts) {
-      console.log('nextSorts', nextSorts);
-    },
+  const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+    const fileReader = new FileReader();
+    fileReader.onload = e => {
+      const { result } = e.target;
+      // console.log(result);
+      createCanvas(result);
+    };
+    fileReader.readAsDataURL(files[0]);
   };
-  // @ts-ignore
-  return <Table dataSource={dataSource} columns={columns} filter={filter} sort={sort} />;
+
+  return (
+    <div>
+      <input type='file' accept='application/pdf' onChange={onFileChange} />
+      <span>{imgUrl}</span>
+    </div>
+  );
 }
 
 export default Home;
