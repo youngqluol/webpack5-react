@@ -3,7 +3,12 @@ import { Button } from '@kdcloudjs/kdesign';
 import axios from 'axios';
 // import { downloadFile } from '@src/service';
 
-const Download = () => {
+interface DownloadProps {
+  text: string;
+}
+
+const Download = (props: DownloadProps) => {
+  const { text } = props;
   const [loading, setLoading] = React.useState<boolean>(false);
   const [processText, setProcessText] = React.useState<string>('');
 
@@ -50,7 +55,7 @@ const Download = () => {
   return (
     <div>
       <Button type='primary' loading={loading} onClick={triggerDownload}>
-        点击下载
+        {text}
       </Button>
       <span>{processText}</span>
     </div>
