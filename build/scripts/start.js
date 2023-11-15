@@ -39,7 +39,7 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
 }
 
-const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000; // 端口号
+const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000; // server port
 const HOST = '0.0.0.0';
 
 async function start() {
@@ -49,7 +49,7 @@ async function start() {
   if (port == null) {
     return;
   }
-  const config = require('../webpack.dev'); // webpack配置
+  const config = require('../webpack.dev'); // webpack config
   const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
   const appName = require(paths.appPackageJson).name;
 

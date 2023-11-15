@@ -24,5 +24,6 @@ router.get('/(.*)', async (ctx, next) => {
 
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(8800, '0.0.0.0');
-console.log('服务已启动: http://localhost:8800');
+app.listen(8800, '0.0.0.0', () => {
+  console.log('服务已启动: http://localhost:8800');
+});

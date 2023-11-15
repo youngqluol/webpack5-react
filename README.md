@@ -1,6 +1,7 @@
-## 一、目录结构
+## 一、目录
+
 ```js
-├── app
+├── app // 本地模拟服务
 |  └── index.js
 ├── build // webpack构建目录
 |  ├── config
@@ -9,11 +10,6 @@
 |  ├── webpack.common.js // 通用打包配置
 |  ├── webpack.dev.js // 开发打包配置
 |  └── webpack.prod.js // 生产打包配置
-├── coverage // 单测快照
-|  ├── clover.xml
-|  ├── coverage-final.json
-|  ├── lcov-report
-|  └── lcov.info
 ├── dist // 构建产物
 |  ├── css
 |  ├── favicon.ico
@@ -37,9 +33,7 @@
 |  ├── store // 状态管理(mobX)
 |  ├── style // 样式
 |  └── utils // 通用工具
-├── TODO.md
 ├── tsconfig.json
-├── yarn.lock
 └── __test__ // 单测
    ├── components
    ├── utils
@@ -47,48 +41,22 @@
 
 ```
 
-## 二、启动前
-
-#### 1. vscode扩展：
-- `EditorConfig For vs Code`
-- `prettier`
-- `eslint`
-
-#### 2. 下载依赖: 
+## 二、下载依赖: 
 
 ```js
-npm install
-// 或 
-yarn
+pnpm install
 ```
+
 ## 三、启动
 
-```js
-npm run start
-// 或 
-yarn start
+```js 
+pnpm start
 ```
 
-## 四、其他
-
-#### 1. 构建
+## 四. 构建
 
 ```js
-npm run build 
-// 或 
-yarn build
-```
-
-#### 2. 包分析
-
-```js
-npm run build --report
-```
-
-#### 3. 格式化代码
-
-```js
-npm run lint
+pnpm build
 ```
 
 

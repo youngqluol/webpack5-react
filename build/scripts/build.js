@@ -116,7 +116,7 @@ checkBrowsers(paths.appPath, isInteractive)
 
 // Create the production build and print the deployment instructions.
 function build(previousFileSizes) {
-  const config = require('../webpack.prod'); // webpack配置
+  const config = require('../webpack.prod'); // webpack production config
   const compiler = webpack(config);
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {

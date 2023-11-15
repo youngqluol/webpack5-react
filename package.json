@@ -17,7 +17,7 @@
     "build": "node build/scripts/build.js",
     "report": "npm run build --report",
     "lint": "eslint -c .eslintrc.js --ext .ts,.tsx,.js src",
-    "serve": "node app/index.js",
+    "serve": "node app/mock.index.js",
     "test": "jest"
   },
   "browserslist": {

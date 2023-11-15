@@ -40,7 +40,7 @@ const {
   imageInlineSizeLimit,
   handleModulesSourceMap,
   processBabelOutsideApp,
-  disableESLintPlugin,
+  enableESLintPlugin,
   webpackFailOnEslintError,
 } = require('./utils/constant');
 
@@ -59,10 +59,8 @@ const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 module.exports = {
   target: ['browserslist'],
 
-  // 入口：src/index.tsx
   entry: paths.appIndexJs,
 
-  // 缓存
   cache: {
     type: 'filesystem',
     version: createEnvironmentHash(env.raw),
@@ -208,24 +206,6 @@ module.exports = {
 
               plugins: [
                 isEnvDevelopment && require.resolve('react-refresh/babel'),
-                [
-                  'import',
-                  {
-                    libraryName: 'antd',
-                    libraryDirectory: 'lib',
-                    style: 'css',
-                  },
-                  'antd',
-                ],
-                // [
-                //   'import',
-                //   {
-                //     libraryName: '@kdcloudjs/kdesign',
-                //     libraryDirectory: 'lib',
-                //     style: 'css',
-                //   },
-                //   '@kdcloudjs/kdesign',
-                // ],
               ].filter(Boolean),
               // Enables caching results in ./node_modules/.cache/babel-loader/ directory for faster rebuilds.
               cacheDirectory: true,
@@ -403,7 +383,7 @@ module.exports = {
         infrastructure: 'silent',
       },
     }),
-    !disableESLintPlugin &&
+    enableESLintPlugin &&
       new ESLintPlugin({
         // Plugin options
         extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],

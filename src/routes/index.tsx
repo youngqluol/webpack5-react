@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
-// import App from '../pages/App';
 import Home from '../pages/Home';
 
 function BasicRouter() {

@@ -9,7 +9,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const { isEnvProduction, useSourceMapInProduction, ANALYZER_HOST, ANALYZER_PORT } = require('./utils/constant');
 const paths = require('./config/paths');
-const shouldOpenAnalyzer = process.env.npm_config_report;
+const enableBundleAnalyze = process.env.npm_config_report;
 
 module.exports = merge(commonConfig, {
   mode: 'production',
@@ -34,7 +34,7 @@ module.exports = merge(commonConfig, {
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[name].[contenthash:8].chunk.css',
     }),
-    shouldOpenAnalyzer &&
+    enableBundleAnalyze &&
       new BundleAnalyzerPlugin({
         analyzerMode: 'server',
         analyzerHost: ANALYZER_HOST,
@@ -52,22 +52,6 @@ module.exports = merge(commonConfig, {
           test: /[\\/]node_modules[\\/]/,
           priority: -20,
           // chunks: 'initial',
-        },
-        antd: {
-          name: 'antd',
-          test: /[\\/]antd[\\/]/,
-          priority: -10,
-          // 如果当前 chunk 包含已从主 bundle 中拆分出的模块，则它将被重用，而不是生成新的模块。
-          // 这可能会影响 chunk 的结果文件名。
-          reuseExistingChunk: true,
-        },
-        kdcloudjs: {
-          name: '@kdcloudjs',
-          test: /[\\/]@kdcloudjs[\\/]/,
-          priority: -10,
-          // 如果当前 chunk 包含已从主 bundle 中拆分出的模块，则它将被重用，而不是生成新的模块。
-          // 这可能会影响 chunk 的结果文件名。
-          reuseExistingChunk: true,
         },
       },
     },

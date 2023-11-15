@@ -27,7 +27,7 @@ module.exports = {
 
   imageInlineSizeLimit: 10000, // 图片转换为base64的最小大小，10kb左右
 
-  disableESLintPlugin: false, // 禁用eslint
+  enableESLintPlugin: true, // 启用eslint
   webpackFailOnEslintError: false, // 有eslint告警时打包失败
 
   processBabelOutsideApp: true, // Process any JS outside of the app with Babel.
